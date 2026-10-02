@@ -10,7 +10,7 @@ const nl: Content = {
     suffix: 'Design kit'
   },
   nav: {
-    home: 'Start',
+    home: 'Overzicht',
     tokens: 'Tokens',
     components: 'Componenten',
     header: 'Header',

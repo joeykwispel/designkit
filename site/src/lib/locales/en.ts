@@ -9,7 +9,7 @@ export default {
     suffix: 'Design kit'
   },
   nav: {
-    home: 'Start',
+    home: 'Overview',
     tokens: 'Tokens',
     components: 'Components',
     header: 'Header',
