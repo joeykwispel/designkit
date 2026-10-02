@@ -12,8 +12,9 @@
     description,
     path = '/',
     image = '/og.png',
-    imageAlt
-  }: { title: string; description: string; path?: string; image?: string; imageAlt: string } = $props();
+    imageAlt,
+    noindex = false
+  }: { title: string; description: string; path?: string; image?: string; imageAlt: string; noindex?: boolean } = $props();
 
   const siteUrl = 'https://designkit.joeyoosenbrug.nl';
   const url = $derived(siteUrl + localize(path, app.locale));
@@ -23,6 +24,7 @@
   <title>{title}</title>
   <meta name="description" content={description} />
   <meta name="author" content="Joey Oosenbrug" />
+  {#if noindex}<meta name="robots" content="noindex" />{/if}
   <link rel="canonical" href={url} />
   {#each locales as l (l)}
     <link rel="alternate" hreflang={l} href={siteUrl + localize(path, l)} />

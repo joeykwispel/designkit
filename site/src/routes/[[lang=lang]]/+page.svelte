@@ -2,9 +2,12 @@
   import { app } from '$lib/app.svelte';
   import { t } from '$lib/locales';
   import { exportKeys, exportPaths, INSTALL, PACKAGE, REPO } from '$lib/data/kit';
+  import { sites } from '$lib/data/sites';
+  import { quickstart } from '$lib/data/stacks';
   import { reveal } from '$lib/utils/actions';
   import CodeBlock from '$lib/components/CodeBlock.svelte';
   import SectionHead from '$lib/components/SectionHead.svelte';
+  import StackTabs from '$lib/components/StackTabs.svelte';
   import Seo from '$lib/components/Seo.svelte';
 
   const c = $derived(t(app.locale));
@@ -36,6 +39,26 @@
   </div>
 </section>
 
+<section class="section" id="quick-start">
+  <div class="container">
+    <SectionHead title={h.quickTitle} path="~/designkit/quick-start.md" intro={h.quickIntro} />
+    <StackTabs id="quick">
+      {#snippet children(stack)}
+        <ol class="steps">
+          {#each quickstart[stack] as blocks, i (i)}
+            <li>
+              <p><span class="n mono" aria-hidden="true">{String(i + 1).padStart(2, '0')}.</span>{c.quickstart[stack][i]}</p>
+              {#each blocks as block (block.file)}
+                <CodeBlock {...block} />
+              {/each}
+            </li>
+          {/each}
+        </ol>
+      {/snippet}
+    </StackTabs>
+  </div>
+</section>
+
 <section class="section" id="contents">
   <div class="container">
     <SectionHead title={h.exportsTitle} path="~/designkit/package.json" intro={h.exportsIntro} />
@@ -44,6 +67,24 @@
         <li class="glass" use:reveal={{ delay: i * 40 }}>
           <code class="mono"><span class="pkg">{PACKAGE}</span>{exportPaths[key]}</code>
           <p>{h.exports[key]}</p>
+        </li>
+      {/each}
+    </ul>
+  </div>
+</section>
+
+<section class="section" id="sites">
+  <div class="container">
+    <SectionHead title={h.sitesTitle} path="~/designkit/sites.ts" intro={h.sitesIntro} />
+    <ul class="sites">
+      {#each sites as site, i (site.key)}
+        <li use:reveal={{ delay: i * 40 }}>
+          <a class="glass ring" href={site.url} target="_blank" rel="noopener noreferrer">
+            <span class="name">{site.name} ↗<span class="sr-only"> {h.newTab}</span></span>
+            <span class="domain mono">{site.domain}</span>
+            <span class="what">{h.sites[site.key]}</span>
+            <span class="tag">{site.stack}</span>
+          </a>
         </li>
       {/each}
     </ul>
@@ -91,6 +132,56 @@
     flex-wrap: wrap;
     gap: 0.75rem;
     animation: fade-up 0.8s 0.16s var(--ease) both;
+  }
+
+  .steps {
+    display: grid;
+    gap: 1.6rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .steps li {
+    display: grid;
+    gap: 0.7rem;
+    min-width: 0;
+  }
+  .steps p {
+    max-width: none;
+  }
+  .n {
+    color: var(--accent-text);
+    font-size: 0.85rem;
+    margin-right: 0.5rem;
+  }
+
+  .sites {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+    gap: 0.9rem;
+  }
+  .sites a {
+    height: 100%;
+    padding: 1rem 1.1rem;
+    display: grid;
+    gap: 0.3rem;
+    justify-items: start;
+    align-content: start;
+    text-decoration: none;
+    color: var(--text);
+  }
+  .name {
+    font-weight: 700;
+    font-size: 1.05rem;
+  }
+  .domain {
+    font-size: 0.75rem;
+    color: var(--accent-text);
+  }
+  .what {
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-block: 0.2rem 0.5rem;
   }
 
   .exports {

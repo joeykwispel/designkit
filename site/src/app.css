@@ -28,3 +28,98 @@ main {
   font-size: 0.75rem;
   color: var(--muted);
 }
+
+/* Page title block: the h1 of a page with its intro */
+.page-head {
+  padding-block: clamp(2.5rem, 6vw, 4rem) 0;
+}
+.page-head .section-head {
+  margin-bottom: 0;
+}
+.page-head .section-head p:last-child {
+  font-size: clamp(1rem, 1.5vw, 1.1rem);
+}
+
+/* Data tables. The wrapper scrolls sideways on a narrow screen instead of the page. */
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+.table th,
+.table td {
+  padding: 0.65rem 0.9rem;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--border);
+}
+.table tbody tr:last-child > * {
+  border-bottom: 0;
+}
+.table thead th {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.table tbody th {
+  font-weight: 600;
+  white-space: nowrap;
+}
+.table code,
+.table .mono {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+}
+.table code {
+  color: var(--accent-text);
+}
+
+/* Lists of rules and decisions */
+.rules {
+  display: grid;
+  gap: 0.6rem;
+  max-width: 75ch;
+}
+.rules li {
+  position: relative;
+  padding-left: 1.6rem;
+  color: var(--muted);
+}
+.rules li::before {
+  content: '//';
+  position: absolute;
+  left: 0;
+  font-family: var(--mono);
+  font-size: 0.85em;
+  color: var(--syn-com);
+}
+
+.stack-y {
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+}
+.stack-y > * {
+  min-width: 0;
+}
+.sub {
+  margin-top: 2rem;
+  margin-bottom: 0.8rem;
+}
+.note {
+  color: var(--muted);
+  max-width: 75ch;
+}
+
+/* On a phone the table scrolls sideways; without this the describing column is crushed to a word per line. */
+.table td:last-child {
+  min-width: 13rem;
+}
