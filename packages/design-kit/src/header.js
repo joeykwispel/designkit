@@ -117,6 +117,10 @@ export function initJoHeader(root = document.querySelector('.jo-nav'), options =
       syncLabel();
     });
     syncLabel();
+    // The theme can also change from outside the header (a command menu, another tab): keep the label true.
+    const themeWatch = new MutationObserver(syncLabel);
+    themeWatch.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    cleanups.push(() => themeWatch.disconnect());
   }
 
   /* Optional command menu */
@@ -144,6 +148,10 @@ export function initJoHeader(root = document.querySelector('.jo-nav'), options =
             if (a.getAttribute('href') === `#${e.target.id}`) a.setAttribute('aria-current', 'true');
             else a.removeAttribute('aria-current');
           }
+        }
+        // Back above the first section (the hero): no link is current any more
+        if (Math.min(...targets.map((t) => t.getBoundingClientRect().top)) > innerHeight * 0.45) {
+          for (const a of hashLinks) a.removeAttribute('aria-current');
         }
       },
       { rootMargin: '-40% 0px -55% 0px' }

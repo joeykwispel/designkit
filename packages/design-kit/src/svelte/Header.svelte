@@ -73,7 +73,8 @@
             hreflang={language.code}
             aria-current={language.current ? 'true' : undefined}
             onclick={() => onLanguage?.(language.code)}
-            data-sveltekit-noscroll>{language.code.toUpperCase()}</a
+            data-sveltekit-noscroll
+            data-sveltekit-keepfocus>{language.code.toUpperCase()}</a
           >
         {/each}
       </div>

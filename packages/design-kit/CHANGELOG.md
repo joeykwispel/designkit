@@ -8,9 +8,12 @@ All notable changes to `@joeykwispel/design-kit`. The format follows [Keep a Cha
 
 - `svelte`: a `tools` snippet for an app's own controls in the header, such as a sign-in button. It is rendered before the language switch.
 - `react`: the same through `children`.
+- `svelte`: switching language in a SvelteKit app keeps the focus on the language switch.
 
 ### Fixed
 
+- `header`: back at the top of the page, above the first section, no link is marked as current any more. The last one used to stay marked.
+- `header`: the label of the theme button follows the theme when it is changed from outside the header, such as from a command menu or another tab.
 - `tokens`: the type declarations pointed at `.ts` files that are not in the package. They now point at the `.js` files next to them.
 
 ## 1.0.0
