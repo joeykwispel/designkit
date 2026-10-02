@@ -1,0 +1,30 @@
+/*
+ * Site-only additions. Tokens, base styles, buttons, tags and cards come from the design kit
+ * (@joeykwispel/design-kit/kit.css); change those in packages/design-kit.
+ */
+
+body {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+  padding-top: var(--nav-h);
+}
+
+/* Teal to purple, left to right: the one gradient of the kit, here on text. */
+.grad {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* The file-path label above a section or on a window */
+.path {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+}

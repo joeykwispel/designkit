@@ -19,6 +19,8 @@ export default ts.config(
   },
   {
     rules: {
+      // Internal links are built with app.href()/localize(), which already prefix the base path
+      'svelte/no-navigation-without-resolve': 'off',
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }]
     }
   },
