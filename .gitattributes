@@ -1,0 +1,4 @@
+# LF everywhere, so the generated CSS and its byte-for-byte fixtures are the same on every machine
+* text=auto eol=lf
+*.png binary
+*.woff2 binary

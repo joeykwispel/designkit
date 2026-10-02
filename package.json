@@ -1,0 +1,40 @@
+{
+  "name": "designkit",
+  "version": "0.0.0",
+  "description": "The design system of joeyoosenbrug.nl: the @joeykwispel/design-kit package and its documentation site at designkit.joeyoosenbrug.nl.",
+  "author": "Joey Oosenbrug (https://github.com/joeykwispel)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joeykwispel/designkit.git"
+  },
+  "homepage": "https://designkit.joeyoosenbrug.nl",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "prepare": "npm run build:kit",
+    "build:kit": "npm run build -w @joeykwispel/design-kit",
+    "build": "npm run build --workspaces --if-present",
+    "check": "npm run check --workspaces --if-present",
+    "lint": "prettier --check . && eslint .",
+    "format": "prettier --write .",
+    "test:unit": "npm run test:unit --workspaces --if-present"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.11.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-svelte": "^3.23.0",
+    "globals": "^17.12.0",
+    "prettier": "^3.9.9",
+    "prettier-plugin-svelte": "^4.1.1",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.70.1"
+  }
+}
