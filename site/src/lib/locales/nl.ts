@@ -295,7 +295,8 @@ const nl: Content = {
         homeHref: 'Waar het logo naartoe gaat. Het portfolio, tenzij je een heel goede reden hebt.',
         onSearch: 'Toont de Ctrl K-knop en koppelt Ctrl/Cmd+K.',
         onLanguage: 'Alleen Svelte. Wordt bij een klik aangeroepen met de taalcode, om de keuze te onthouden.',
-        skip: 'Alleen Svelte, standaard aan. Tekent de link "naar de inhoud" vóór de header.'
+        skip: 'Alleen Svelte, standaard aan. Tekent de link "naar de inhoud" vóór de header.',
+        tools: 'De eigen knoppen van de app, zoals een inlogknop, vóór de taalwissel. In React: children.'
       },
       menuTitle: 'Een commandomenu'
     }

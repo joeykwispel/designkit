@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { onMount, type Snippet } from 'svelte';
   import { initJoHeader } from '../header.js';
   import type { HeaderLabels, HeaderLanguage, HeaderLink } from '../header.js';
 
@@ -22,9 +22,11 @@
     onLanguage?: (code: string) => void;
     /** Renders the "skip to content" link (to #main) before the header. Needs `labels.skip`. */
     skip?: boolean;
+    /** The app's own controls, e.g. a sign-in button. Rendered in the tools, before the language switch. */
+    tools?: Snippet;
   }
 
-  let { links = [], languages, labels, homeHref = 'https://joeyoosenbrug.nl/', onSearch, onLanguage, skip = true }: Props = $props();
+  let { links = [], languages, labels, homeHref = 'https://joeyoosenbrug.nl/', onSearch, onLanguage, skip = true, tools }: Props = $props();
   let root: HTMLElement;
 
   onMount(() => initJoHeader(root, onSearch ? { onSearch: () => onSearch?.() } : {}));
@@ -61,6 +63,8 @@
         </svg>
         <kbd>Ctrl K</kbd>
       </button>
+
+      {@render tools?.()}
 
       <div class="jo-nav__lang" role="group" aria-label={labels.language}>
         {#each languages as language (language.code)}

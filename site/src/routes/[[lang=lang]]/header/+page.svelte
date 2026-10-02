@@ -22,7 +22,8 @@
     { name: 'homeHref', type: 'string' },
     { name: 'onSearch', type: '() => void' },
     { name: 'onLanguage', type: '(code: string) => void' },
-    { name: 'skip', type: 'boolean' }
+    { name: 'skip', type: 'boolean' },
+    { name: 'tools', type: 'Snippet' }
   ] as const;
 </script>
 

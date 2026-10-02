@@ -292,7 +292,8 @@ export default {
         homeHref: 'Where the logo goes. The portfolio, unless you have a very good reason.',
         onSearch: 'Shows the Ctrl K button and binds Ctrl/Cmd+K.',
         onLanguage: 'Svelte only. Called with the language code on a click, for remembering the choice.',
-        skip: 'Svelte only, on by default. Renders the "skip to content" link before the header.'
+        skip: 'Svelte only, on by default. Renders the "skip to content" link before the header.',
+        tools: 'The app’s own controls, such as a sign-in button, placed before the language switch. In React: children.'
       },
       menuTitle: 'A command menu'
     }
