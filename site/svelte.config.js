@@ -17,7 +17,14 @@ export default {
   kit: {
     adapter: adapter({ pages: 'dist', assets: 'dist', fallback: '404.html', precompress: false, strict: true }),
     paths: { base, relative: false },
-    prerender: { entries: ['*', '/nl/'] },
+    prerender: {
+      entries: ['*', '/nl/'],
+      // The playground passes its options to the preview page in the URL hash (#links=4&search=0).
+      // That is not an anchor, so there is no element with that id. Any other missing anchor is still an error.
+      handleMissingId: ({ path, message }) => {
+        if (!path.endsWith('/header/preview/')) throw new Error(message);
+      }
+    },
     // GitHub Pages can't send headers, so prerendered pages get the policy as a <meta> tag.
     csp: {
       mode: 'hash',
