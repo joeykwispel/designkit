@@ -15,7 +15,8 @@
     "node": ">=24"
   },
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "site"
   ],
   "scripts": {
     "prepare": "npm run build:kit",
@@ -24,7 +25,11 @@
     "check": "npm run check --workspaces --if-present",
     "lint": "prettier --check . && eslint .",
     "format": "prettier --write .",
-    "test:unit": "npm run test:unit --workspaces --if-present"
+    "test:unit": "npm run test:unit --workspaces --if-present",
+    "dev": "npm run dev -w designkit-site",
+    "preview": "npm run preview -w designkit-site",
+    "test:e2e": "npm run test:e2e -w designkit-site",
+    "test": "npm run test:unit && npm run test:e2e"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
@@ -36,5 +41,8 @@
     "prettier-plugin-svelte": "^4.1.1",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.70.1"
+  },
+  "overrides": {
+    "cookie": "^0.7.2"
   }
 }

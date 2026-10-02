@@ -1,0 +1,43 @@
+# Publishes @joeykwispel/design-kit to npm when a version tag is pushed: `git tag v1.1.0 && git push origin v1.1.0`.
+# Uses npm trusted publishing (OIDC), so there is no token to store or leak.
+# One-time setup, after the first release has been published by hand: on npmjs.com, package Settings -> Trusted Publisher ->
+# GitHub Actions, repository joeykwispel/designkit, workflow release.yml.
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+  # lets npm verify that this workflow run is the one publishing
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+          registry-url: https://registry.npmjs.org
+
+      - run: npm ci
+
+      - name: The tag has to match the version in package.json
+        run: |
+          version="v$(node -p "require('./packages/design-kit/package.json').version")"
+          if [ "$version" != "$GITHUB_REF_NAME" ]; then
+            echo "::error::Tag $GITHUB_REF_NAME does not match package version $version"
+            exit 1
+          fi
+
+      - run: npm run check
+
+      - run: npm run test:unit
+
+      # prepack builds dist/ again, so what is published is what was just tested
+      - run: npm publish -w @joeykwispel/design-kit --provenance --access public
