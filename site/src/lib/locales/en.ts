@@ -255,7 +255,10 @@ export default {
       rows: {
         progress: { feature: 'Progress bar', how: 'A 2px teal to purple gradient along the bottom edge, scaled to the scroll position.' },
         frosted: { feature: 'Frosted state', how: 'After 12px of scroll: --bg at 78%, blur(16px) and a bottom border.' },
-        active: { feature: 'Active link', how: 'aria-current on the link. Links to #sections on the same page are tracked while scrolling.' },
+        active: {
+          feature: 'Active link',
+          how: 'aria-current on the link. Links to #sections on the same page are tracked while scrolling; above the first section, none is marked.'
+        },
         menu: { feature: 'Mobile menu', how: 'Below 1120px the links move into a dropdown card. It closes on a link click and on Escape.' },
         numbers: { feature: 'Number prefixes', how: '01. shows above 1480px and in the mobile menu. In between it is hidden to save room.' },
         theme: {

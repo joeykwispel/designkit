@@ -258,7 +258,10 @@ const nl: Content = {
       rows: {
         progress: { feature: 'Voortgangsbalk', how: 'Een verloop van 2px van teal naar paars langs de onderrand, geschaald naar de scrollpositie.' },
         frosted: { feature: 'Matglas', how: 'Na 12px scrollen: --bg op 78%, blur(16px) en een rand aan de onderkant.' },
-        active: { feature: 'Actieve link', how: 'aria-current op de link. Links naar #secties op dezelfde pagina worden gevolgd tijdens het scrollen.' },
+        active: {
+          feature: 'Actieve link',
+          how: 'aria-current op de link. Links naar #secties op dezelfde pagina worden gevolgd tijdens het scrollen; boven de eerste sectie is er geen gemarkeerd.'
+        },
         menu: { feature: 'Mobiel menu', how: 'Onder 1120px gaan de links naar een uitklapkaart. Die sluit bij een klik op een link en met Escape.' },
         numbers: { feature: 'Nummers', how: '01. staat erbij boven 1480px en in het mobiele menu. Daartussen is het verborgen om ruimte te besparen.' },
         theme: {

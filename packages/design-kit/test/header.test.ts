@@ -63,6 +63,75 @@ describe('theme', () => {
   });
 });
 
+describe('theme changed from outside the header', () => {
+  it('keeps the label of the button true', async () => {
+    const { theme } = mount();
+    setTheme('light');
+    await new Promise((done) => setTimeout(done));
+    expect(theme.getAttribute('aria-label')).toBe('Switch to dark theme');
+    destroy();
+    setTheme('dark');
+    await new Promise((done) => setTimeout(done));
+    // after cleanup the header no longer listens
+    expect(theme.getAttribute('aria-label')).toBe('Switch to dark theme');
+  });
+});
+
+describe('links to sections of the page', () => {
+  type Entry = { isIntersecting: boolean; target: Element };
+  let report: (entries: Entry[]) => void = () => {};
+
+  beforeEach(() => {
+    vi.stubGlobal(
+      'IntersectionObserver',
+      class {
+        constructor(callback: (entries: Entry[]) => void) {
+          report = callback;
+        }
+        observe() {}
+        disconnect() {}
+      }
+    );
+  });
+  afterEach(() => vi.unstubAllGlobals());
+
+  function page() {
+    document.body.innerHTML =
+      html.replace('href="/en/" aria-current="page"', 'href="#skills"').replace('href="/en/career/"', 'href="#career"') +
+      '<section id="skills"></section><section id="career"></section>';
+    const root = document.querySelector<HTMLElement>('.jo-nav')!;
+    const [skills, career] = [document.getElementById('skills')!, document.getElementById('career')!];
+    const place = (top: number) => {
+      skills.getBoundingClientRect = () => ({ top }) as DOMRect;
+      career.getBoundingClientRect = () => ({ top: top + 1000 }) as DOMRect;
+    };
+    place(0);
+    destroy = initJoHeader(root);
+    const current = () => [...root.querySelectorAll('.jo-nav__link[aria-current]')].map((a) => a.getAttribute('href'));
+    return { skills, career, place, current };
+  }
+
+  it('marks the link of the section in view', () => {
+    const { skills, career, current } = page();
+    report([{ isIntersecting: true, target: skills }]);
+    expect(current()).toEqual(['#skills']);
+    report([
+      { isIntersecting: false, target: skills },
+      { isIntersecting: true, target: career }
+    ]);
+    expect(current()).toEqual(['#career']);
+  });
+
+  it('marks no link once the page is back above the first section', () => {
+    const { skills, place, current } = page();
+    report([{ isIntersecting: true, target: skills }]);
+    // scrolled back up: the first section starts below the middle of the screen again
+    place(innerHeight);
+    report([{ isIntersecting: false, target: skills }]);
+    expect(current()).toEqual([]);
+  });
+});
+
 describe('mobile menu', () => {
   it('opens and closes from the burger', () => {
     const { menu, burger } = mount();
