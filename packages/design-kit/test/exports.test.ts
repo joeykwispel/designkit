@@ -17,4 +17,16 @@ describe('package exports', () => {
     for (const target of targets) expect(files).toContain(target.replace(/^\.\//, ''));
     expect(files.filter((f) => f.startsWith('test/') || f.startsWith('scripts/'))).toEqual([]);
   });
+
+  it('only refers to files that are in the tarball from its type declarations', () => {
+    const declarations = ['dist/tokens/index.d.ts', 'dist/react/JoHeader.d.ts', 'src/svelte/index.d.ts'];
+    for (const file of declarations) {
+      const dir = file.slice(0, file.lastIndexOf('/') + 1);
+      for (const [, specifier] of read(file).matchAll(/from '(\.[^']+)'/g)) {
+        // a .js specifier is typed by the .d.ts next to it, unless the file itself ships (header.js, Header.svelte)
+        const target = root + dir + specifier;
+        expect(existsSync(target) || existsSync(target.replace(/\.js$/, '.d.ts')), `${file} imports ${specifier}`).toBe(true);
+      }
+    }
+  });
 });

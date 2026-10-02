@@ -1,6 +1,6 @@
 {
   "name": "@joeykwispel/design-kit",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "The design system of joeyoosenbrug.nl: tokens, base styles, components and the shared header for every *.joeyoosenbrug.nl app.",
   "author": "Joey Oosenbrug (https://github.com/joeykwispel)",
   "license": "MIT",

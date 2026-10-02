@@ -2,6 +2,17 @@
 
 All notable changes to `@joeykwispel/design-kit`. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versions follow [Semantic Versioning](https://semver.org/): renaming or removing a token or class is a major release, a new token or class a minor one.
 
+## 1.1.0
+
+### Added
+
+- `svelte`: a `tools` snippet for an app's own controls in the header, such as a sign-in button. It is rendered before the language switch.
+- `react`: the same through `children`.
+
+### Fixed
+
+- `tokens`: the type declarations pointed at `.ts` files that are not in the package. They now point at the `.js` files next to them.
+
 ## 1.0.0
 
 The design kit as a package. Until now it lived in `docs/design-kit/` of the portfolio and was copied into every app by hand.

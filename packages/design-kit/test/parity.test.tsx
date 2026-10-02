@@ -1,6 +1,7 @@
 // Runs in Node, so the Svelte plugin compiles the component for the server.
 import { JSDOM } from 'jsdom';
 import { renderToStaticMarkup } from 'react-dom/server';
+import { createRawSnippet } from 'svelte';
 import { render } from 'svelte/server';
 import { describe, expect, it } from 'vitest';
 import { headerLabels } from '../src/header.js';
@@ -67,6 +68,25 @@ describe('header markup', () => {
   it('renders the skip link in Svelte unless turned off', () => {
     expect(render(Header, { props }).body).toContain('<a class="skip" href="#main">Skip to content</a>');
     expect(render(Header, { props: { ...props, skip: false } }).body).not.toContain('class="skip"');
+  });
+
+  it('renders the controls an app adds between the Ctrl K button and the language switch', () => {
+    const react = renderToStaticMarkup(
+      <JoHeader {...props}>
+        <button className="sign-in">Sign in</button>
+      </JoHeader>
+    );
+    const svelte = render(Header, { props: { ...props, tools: createRawSnippet(() => ({ render: () => '<button class="sign-in">Sign in</button>' })) } }).body;
+    for (const html of [react, svelte]) {
+      const tools = new JSDOM(html).window.document.querySelector('.jo-nav__tools')!;
+      expect([...tools.children].map((el) => el.className.split(' ').at(-1))).toEqual([
+        'jo-nav__search',
+        'sign-in',
+        'jo-nav__lang',
+        'jo-nav__theme',
+        'jo-nav__burger'
+      ]);
+    }
   });
 
   it('leaves out the menu and its burger when there are no links', () => {

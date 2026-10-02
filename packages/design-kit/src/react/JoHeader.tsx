@@ -15,7 +15,7 @@
  *   />
  */
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, type ReactNode } from 'react';
 import { headerLabels, initJoHeader } from '@joeykwispel/design-kit/header';
 import type { HeaderLabels, HeaderLanguage, HeaderLink } from '@joeykwispel/design-kit/header';
 
@@ -35,9 +35,11 @@ export interface JoHeaderProps {
   homeHref?: string;
   /** Shows the Ctrl K button and binds Ctrl/Cmd+K. Leave out when the app has no command menu. */
   onSearch?: () => void;
+  /** The app's own controls, e.g. a sign-in button. Rendered in the tools, before the language switch. */
+  children?: ReactNode;
 }
 
-export function JoHeader({ links, languages, labels, homeHref = 'https://joeyoosenbrug.nl/', onSearch }: JoHeaderProps) {
+export function JoHeader({ links, languages, labels, homeHref = 'https://joeyoosenbrug.nl/', onSearch, children }: JoHeaderProps) {
   const ref = useRef<HTMLElement>(null);
   const search = useRef(onSearch);
   search.current = onSearch;
@@ -75,6 +77,8 @@ export function JoHeader({ links, languages, labels, homeHref = 'https://joeyoos
             </svg>
             <kbd>Ctrl K</kbd>
           </button>
+
+          {children}
 
           <div className="jo-nav__lang" role="group" aria-label={labels.language}>
             {languages.map((l) => (
