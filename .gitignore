@@ -1,0 +1,29 @@
+# dependencies and build output
+node_modules
+.svelte-kit
+dist
+*.tgz
+
+# local AI tooling (not part of the repo)
+.agents
+.claude
+skills-lock.json
+.playwright-mcp
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode
+.idea
+
+# env files
+.env
+.env.*
+!.env.example
+
+# test output
+test-results
+playwright-report
+
+# Lighthouse CI output
+.lighthouseci
